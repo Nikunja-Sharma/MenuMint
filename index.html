@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>The Basil Leaf · Digital Menu</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#F2F8F4',
+              100: '#E1EFE7',
+              600: '#226B43',
+              800: '#185438',
+              900: '#09291F',
+            },
+            cream: {
+              50: '#FFFDF7',
+              100: '#F9F7ED',
+              200: '#F0EDDF',
+              border: '#E8E3D3',
+            },
+            amberAccent: {
+              400: '#F4C451',
+              500: '#DDA52B',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 8px 24px -4px rgba(9, 41, 31, 0.08), 0 2px 6px -1px rgba(9, 41, 31, 0.04)',
+            'card': '0 4px 16px -2px rgba(24, 84, 56, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+            'float': '0 12px 32px rgba(24, 84, 56, 0.28)'
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Theme Styles -->
+<style data-purpose="custom-scrollbars">
+    /* Hide scrollbar for category pills and carousels while maintaining smooth scroll */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style data-purpose="animations-and-utilities">
+    .safe-bottom {
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+    .backdrop-blur-nav {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    /* Modal drawer transitions */
+    .drawer-closed {
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .drawer-open {
+      transform: translateY(0%);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Tap bounce effect */
+    .btn-bounce:active {
+      transform: scale(0.94);
+    }
+  </style>
+<!-- END: Custom Theme Styles -->
+</head>
+<body class="bg-cream-50 text-brand-900 font-sans antialiased min-h-screen selection:bg-brand-100 selection:text-brand-900">
+<!-- Mobile Viewport Container Constrained to 420px max for authentic iOS mobile experience -->
+<div class="max-w-[420px] mx-auto min-h-screen bg-cream-50 flex flex-col relative pb-32 border-x border-cream-200 shadow-2xl">
+<!-- BEGIN: TopHeader -->
+<header class="sticky top-0 z-40 bg-cream-50/95 backdrop-blur-nav border-b border-cream-200 px-4 py-3 flex items-center justify-between transition-all duration-200" data-purpose="app-header">
+<div class="flex items-center gap-3">
+<!-- Logo Mark -->
+<div class="w-10 h-10 rounded-xl bg-brand-800 flex items-center justify-center text-white shadow-sm shadow-brand-900/20 flex-shrink-0">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+<path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+</svg>
+</div>
+<!-- Restaurant Title and Status -->
+<div>
+<div class="flex items-center gap-1.5">
+<h1 class="text-base font-bold text-brand-900 tracking-tight leading-tight">The Basil Leaf</h1>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-50 text-brand-800 border border-brand-100">T-04</span>
+</div>
+<p class="text-xs text-brand-900/60 font-medium">Fresh food · Made with care</p>
+</div>
+</div>
+<!-- Header Action Icons -->
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 bg-amberAccent-400/20 text-brand-900 px-2 py-1 rounded-full text-xs font-bold border border-amberAccent-400/40">
+<svg class="w-3.5 h-3.5 fill-amberAccent-500 text-amberAccent-500" viewbox="0 0 20 20">
+<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+</svg>
+<span>4.8</span>
+</div>
+<!-- Cart Icon Button -->
+<button aria-label="Open Cart" class="relative p-2 rounded-xl text-brand-900 hover:bg-cream-200 active:scale-95 transition-all" id="header-cart-btn" onclick="openCartDrawer()">
+<svg class="w-6 h-6 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="absolute top-1 right-1 w-4 h-4 bg-brand-800 text-white rounded-full text-[10px] font-bold flex items-center justify-center ring-2 ring-cream-50 scale-0 transition-transform duration-200" id="header-cart-badge">0</span>
+</button>
+</div>
+</header>
+<!-- END: TopHeader -->
+<!-- BEGIN: HeroFeastBanner -->
+<section class="px-4 pt-3 pb-1" data-purpose="hero-banner">
+<div class="relative overflow-hidden rounded-2xl bg-brand-900 shadow-soft aspect-[16/9]">
+<!-- Hero Image from snapshot https://lh3.googleusercontent.com/aida-public/AB6AXuBUVbANwUW3X7rQ9cG4Vh-8v-5RphWgSjtNUGnEAKOXxdnkF0cuKin9PrptEPw5z_mCdVb90-tQAxiYfg8msslATzKG_-n5Xmq850x7QmhO3hUeP_Zq6KxoXN4FGqdfV98tV7n70w36YcMVpxRFw1095YzaorCM_T4DVcrdyjOSa9PjnIFWf2EubTPjAuRGyGzL9r3I3FUK_0GaVAV7I9X13O_ykHLewXN9PYg7pJ9znBazWxNkSCnsH9Oe9x0kLC2dv7s -->
+<img alt="The Basil Leaf Royal Culinary Feast" class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700" loading="eager" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT30WxXeFFYSfDo4lK4h4o0A33JmIDTs-90DkvQ2mlYlQ&s=10"/>
+<!-- Ambient Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/20 to-transparent"></div>
+<!-- Floating Badge -->
+<div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 border border-white/40">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[11px] font-bold text-brand-900 tracking-wide uppercase">Kitchen Live</span>
+</div>
+<!-- Banner Bottom Caption -->
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<p class="text-[10px] uppercase font-bold tracking-widest text-amberAccent-400">Authentic Flavours</p>
+<h2 class="text-lg font-bold leading-tight drop-shadow-sm text-white">Curated Indian Gastronomy</h2>
+</div>
+</div>
+</section>
+<!-- END: HeroFeastBanner -->
+<!-- BEGIN: TaglineHeadline -->
+<div class="px-4 pt-4 pb-2">
+<h2 class="text-2xl font-extrabold text-brand-900 tracking-tight leading-snug">
+        Good food. Great moments.
+      </h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs text-brand-900/70 font-medium">Table 04 · Dine-in experience</span>
+<span class="w-1 h-1 rounded-full bg-brand-600/40"></span>
+<span class="text-xs font-semibold text-emerald-700">Closes 11:00 PM</span>
+</div>
+</div>
+<!-- END: TaglineHeadline -->
+<!-- BEGIN: StickySearchAndFilters -->
+<section class="sticky top-[60px] z-30 bg-cream-50/98 backdrop-blur-md pt-2 pb-2 border-b border-cream-border" data-purpose="search-and-categories">
+<!-- Search Input Container -->
+<div class="px-4">
+<div class="relative flex items-center">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+<svg class="h-4 w-4 text-brand-900/50" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M21 21l-4.35-4.35m1.85-5.65a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<input autocomplete="off" class="w-full pl-10 pr-9 py-2.5 bg-white rounded-2xl border border-cream-border text-xs sm:text-sm font-medium text-brand-900 placeholder:text-brand-900/40 focus:outline-none focus:ring-2 focus:ring-brand-800/20 focus:border-brand-800 transition-all shadow-sm" id="dish-search-input" oninput="handleSearch(this.value)" placeholder="Search dishes..." type="text"/>
+<button class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-brand-900/40 hover:text-brand-900" id="search-clear-btn" onclick="clearSearch()">
+<svg class="h-4 w-4" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" fill-rule="evenodd"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Category Filter Pills Horizontal Scroll -->
+<nav class="flex gap-2 overflow-x-auto no-scrollbar px-4 pt-3 pb-1 -mb-1" data-purpose="category-pills">
+<button class="cat-pill active flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all bg-brand-800 text-white shadow-sm shadow-brand-900/10" data-cat="all" onclick="setCategory('all')">
+          All Items
+        </button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white text-brand-900/80 border border-cream-border hover:bg-cream-100 transition-all" data-cat="Starters" onclick="setCategory('Starters')">
+          Starters
+        </button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white text-brand-900/80 border border-cream-border hover:bg-cream-100 transition-all" data-cat="Main Course" onclick="setCategory('Main Course')">
+          Main Course
+        </button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white text-brand-900/80 border border-cream-border hover:bg-cream-100 transition-all" data-cat="Breads &amp; Rice" onclick="setCategory('Breads &amp; Rice')">
+          Breads &amp; Rice
+        </button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white text-brand-900/80 border border-cream-border hover:bg-cream-100 transition-all" data-cat="Snacks" onclick="setCategory('Snacks')">
+          Snacks
+        </button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white text-brand-900/80 border border-cream-border hover:bg-cream-100 transition-all" data-cat="Desserts" onclick="setCategory('Desserts')">
+          Desserts
+        </button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white text-brand-900/80 border border-cream-border hover:bg-cream-100 transition-all" data-cat="Drinks" onclick="setCategory('Drinks')">
+          Drinks
+        </button>
+</nav>
+<!-- Dietary Quick Filter Row -->
+<div class="flex items-center gap-2 px-4 pt-2">
+<span class="text-[11px] font-bold text-brand-900/50 uppercase tracking-wider">Dietary:</span>
+<button class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-cream-border text-emerald-800 flex items-center gap-1.5 transition-all" id="veg-toggle" onclick="toggleDietary('veg')">
+<span class="w-2 h-2 rounded-full bg-emerald-600 ring-2 ring-emerald-200"></span> Veg Only
+        </button>
+<button class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-cream-border text-rose-800 flex items-center gap-1.5 transition-all" id="nonveg-toggle" onclick="toggleDietary('nonveg')">
+<span class="w-2 h-2 rounded-full bg-rose-600 ring-2 ring-rose-200"></span> Non-Veg
+        </button>
+</div>
+</section>
+<!-- END: StickySearchAndFilters -->
+<!-- BEGIN: PromotionalCallout -->
+<div class="px-4 pt-3">
+<div class="bg-gradient-to-r from-amberAccent-400/20 via-amberAccent-400/10 to-transparent p-3 rounded-2xl border border-amberAccent-400/30 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-full bg-amberAccent-400 flex items-center justify-center text-brand-900 font-bold text-sm shadow-sm">
+            %
+          </div>
+<div>
+<p class="text-xs font-bold text-brand-900">₹100 OFF on orders &gt; ₹600</p>
+<p class="text-[10px] text-brand-900/70 font-medium">Use code <span class="font-bold uppercase tracking-wider text-brand-800">MINT100</span> at checkout</p>
+</div>
+</div>
+<button class="px-2.5 py-1 text-[11px] font-bold text-brand-800 bg-white rounded-lg border border-brand-800/20 active:scale-95 shadow-2xs" onclick="applyOfferCode()">
+          Apply
+        </button>
+</div>
+</div>
+<!-- END: PromotionalCallout -->
+<!-- BEGIN: MenuListingSection -->
+<main class="px-4 pt-4" data-purpose="menu-items-grid">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-lg font-bold text-brand-900 tracking-tight" id="section-title">Popular dishes</h2>
+<span class="text-xs font-semibold text-brand-900/50" id="items-count">20 items</span>
+</div>
+<!-- Responsive 2-column Grid matching mobile layout -->
+<div class="grid grid-cols-2 gap-3.5" id="dishes-grid">
+<!-- Dish cards are dynamically rendered and filtered by JavaScript for zero-lag responsiveness -->
+</div>
+<!-- Empty State Container -->
+<div class="hidden py-16 text-center" id="no-results">
+<div class="w-16 h-16 mx-auto mb-3 rounded-full bg-cream-200 flex items-center justify-center text-brand-900/40">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<h3 class="text-sm font-bold text-brand-900">No delicious matches found</h3>
+<p class="text-xs text-brand-900/60 mt-1 max-w-[200px] mx-auto">Try checking for typos or clear active filters</p>
+<button class="mt-4 px-4 py-1.5 bg-brand-800 text-white rounded-full text-xs font-bold shadow-sm" onclick="resetFilters()">
+          Reset All Filters
+        </button>
+</div>
+</main>
+<!-- END: MenuListingSection -->
+<!-- BEGIN: RestaurantFooterInfo -->
+<footer class="mt-8 px-4 pt-6 pb-4 border-t border-cream-border text-center" data-purpose="restaurant-footer">
+<div class="w-8 h-8 mx-auto mb-2 rounded-lg bg-brand-800/10 flex items-center justify-center text-brand-800">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+</svg>
+</div>
+<h3 class="text-sm font-bold text-brand-900">The Basil Leaf · Dine-In Experience</h3>
+<p class="text-[11px] text-brand-900/60 mt-1">12 Forest Avenue, Green Park · Open Tue-Sun 12pm - 11pm</p>
+<p class="text-[11px] text-brand-900/60 mt-0.5">Please inform server of any food allergies or diet restrictions.</p>
+<div class="mt-5 pt-4 border-t border-cream-200 flex flex-col items-center justify-center gap-1">
+<span class="text-[10px] text-brand-900/50 uppercase tracking-widest font-semibold">Powered by</span>
+<span class="text-xs font-extrabold tracking-tight text-brand-800">MenuMint <span class="text-[10px] font-normal text-brand-900/60">by Aquariusly.pro</span></span>
+</div>
+</footer>
+<!-- END: RestaurantFooterInfo -->
+<!-- BEGIN: FloatingCartBar -->
+<div class="fixed bottom-3 left-4 right-4 max-w-[388px] mx-auto z-40 transform translate-y-28 opacity-0 pointer-events-none transition-all duration-300 ease-out" data-purpose="floating-cart-summary" id="floating-cart-bar">
+<button class="w-full bg-brand-800 text-white p-3.5 rounded-2xl shadow-float flex items-center justify-between border border-emerald-600/40 active:scale-[0.98] transition-transform" onclick="openCartDrawer()">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center font-bold text-xs" id="cart-bar-count">
+            0
+          </div>
+<div class="text-left">
+<span class="block text-[10px] uppercase font-bold tracking-wider text-emerald-200">Table 04 Order</span>
+<span class="text-sm font-extrabold tracking-tight" id="cart-bar-total">₹0</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 font-bold text-xs bg-white text-brand-900 px-3.5 py-1.5 rounded-xl shadow-xs">
+<span>View Cart</span>
+<svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</button>
+</div>
+<!-- END: FloatingCartBar -->
+<!-- BEGIN: SlideUpCartDrawer -->
+<div class="fixed inset-0 bg-brand-900/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" id="cart-backdrop" onclick="closeCartDrawer()"></div>
+<aside class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto bg-white rounded-t-3xl z-50 shadow-2xl transition-transform duration-300 ease-out transform translate-y-full flex flex-col max-h-[85vh]" data-purpose="cart-checkout-drawer" id="cart-drawer">
+<!-- Sheet Handle -->
+<div class="w-12 h-1.5 bg-cream-border rounded-full mx-auto mt-3"></div>
+<!-- Drawer Header -->
+<div class="px-5 py-3 border-b border-cream-200 flex items-center justify-between">
+<div>
+<h3 class="text-base font-bold text-brand-900">Your Table Order</h3>
+<p class="text-xs text-brand-900/60">Table 04 · The Basil Leaf</p>
+</div>
+<button class="p-1.5 rounded-full bg-cream-100 text-brand-900/70 hover:bg-cream-200" onclick="closeCartDrawer()">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<!-- Scrollable Cart Item List -->
+<div class="px-5 py-3 overflow-y-auto space-y-3 flex-1 no-scrollbar divide-y divide-cream-100" id="cart-items-container">
+<!-- Rendered dynamically -->
+</div>
+<!-- Bill Breakdown & Checkout -->
+<div class="p-5 bg-cream-50 border-t border-cream-200 safe-bottom">
+<div class="space-y-1.5 text-xs text-brand-900/80 mb-3">
+<div class="flex justify-between">
+<span>Item Subtotal</span>
+<span class="font-semibold text-brand-900" id="bill-subtotal">₹0</span>
+</div>
+<div class="flex justify-between">
+<span>Taxes &amp; GST (5%)</span>
+<span class="font-semibold text-brand-900" id="bill-tax">₹0</span>
+</div>
+<div class="hidden flex justify-between text-emerald-700 font-bold" id="discount-row">
+<span>Offer Discount (MINT100)</span>
+<span id="bill-discount">-₹100</span>
+</div>
+<div class="pt-2 border-t border-cream-border flex justify-between text-sm font-extrabold text-brand-900">
+<span>Total Payable</span>
+<span class="text-base text-brand-800" id="bill-grand-total">₹0</span>
+</div>
+</div>
+<button class="w-full bg-brand-800 hover:bg-brand-900 active:scale-[0.98] text-white py-3.5 rounded-2xl font-bold text-sm tracking-wide shadow-md transition-all flex items-center justify-center gap-2" id="place-order-btn" onclick="placeOrderAction()">
+<span>Send Order to Kitchen</span>
+<svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M13 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</aside>
+<!-- END: SlideUpCartDrawer -->
+<!-- BEGIN: DishDetailBottomSheet -->
+<div class="fixed inset-0 bg-brand-900/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" id="detail-backdrop" onclick="closeDishDetail()"></div>
+<div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto bg-white rounded-t-3xl z-50 shadow-2xl transition-transform duration-300 ease-out transform translate-y-full flex flex-col max-h-[90vh] overflow-hidden" data-purpose="dish-customization-modal" id="dish-detail-sheet">
+<div class="relative w-full h-52 bg-cream-200">
+<img alt="Dish Detail" class="w-full h-full object-cover" id="modal-dish-img" src=""/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-brand-900/70 text-white flex items-center justify-center backdrop-blur-md" onclick="closeDishDetail()">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</button>
+<div class="absolute bottom-3 left-3" id="modal-badge-container"></div>
+</div>
+<div class="p-5 overflow-y-auto no-scrollbar space-y-4">
+<div>
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-extrabold text-brand-900" id="modal-dish-name"></h3>
+<span class="text-lg font-bold text-brand-800" id="modal-dish-price"></span>
+</div>
+<p class="text-xs text-brand-900/70 mt-1 leading-relaxed" id="modal-dish-desc"></p>
+</div>
+<!-- Customization Options -->
+<div class="border-t border-cream-200 pt-3">
+<label class="block text-xs font-bold text-brand-900 mb-1.5">Portion Size</label>
+<div class="grid grid-cols-2 gap-2 text-xs">
+<label class="flex items-center justify-between p-2.5 rounded-xl border border-brand-800 bg-brand-50/50 cursor-pointer">
+<span class="font-semibold text-brand-900">Regular</span>
+<input checked="" class="text-brand-800 focus:ring-brand-800" name="portion" type="radio"/>
+</label>
+<label class="flex items-center justify-between p-2.5 rounded-xl border border-cream-border hover:bg-cream-100 cursor-pointer">
+<span class="font-medium text-brand-900/80">Large (+ ₹90)</span>
+<input class="text-brand-800 focus:ring-brand-800" name="portion" type="radio"/>
+</label>
+</div>
+</div>
+<div class="border-t border-cream-200 pt-3">
+<label class="block text-xs font-bold text-brand-900 mb-1.5">Spice Preference</label>
+<div class="flex gap-2">
+<span class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-cream-100 border border-cream-border text-brand-900">Mild</span>
+<span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-800 text-white shadow-xs">Medium Authentic</span>
+<span class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-cream-100 border border-cream-border text-brand-900">Extra Spicy 🌶️</span>
+</div>
+</div>
+<div class="border-t border-cream-200 pt-3 pb-2">
+<label class="block text-xs font-bold text-brand-900 mb-1">Cooking Request / Notes</label>
+<textarea class="w-full text-xs rounded-xl border-cream-border focus:ring-brand-800 focus:border-brand-800" id="modal-instructions" placeholder="e.g. Less oil, sauce on the side, no onions..." rows="2"></textarea>
+</div>
+</div>
+<!-- Modal Bottom Action -->
+<div class="p-4 border-t border-cream-200 bg-cream-50 safe-bottom">
+<button class="w-full py-3 bg-brand-800 hover:bg-brand-900 active:scale-[0.98] text-white rounded-xl font-bold text-sm shadow-md transition-all" id="modal-add-btn">
+          Add to Order
+        </button>
+</div>
+</div>
+<!-- END: DishDetailBottomSheet -->
+</div>
+<!-- BEGIN: MenuDataAndInteractivity -->
+<script data-purpose="menu-catalog-data">
+    // Complete 20 structured Indian feast dishes matching prompt requirements
+    const MENU_ITEMS = [
+      {
+        id: 1,
+        name: "Paneer Tikka",
+        category: "Starters",
+        isVeg: true,
+        price: 260,
+        badge: "Bestseller",
+        description: "Smoky, spice-marinated cottage cheese grilled to perfection with bell peppers",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOUn5NLUgNlc7Wv3Iyd277ggjMKYicuD-ZpZ2WKEgxFw&s=10"
+      },
+      {
+        id: 2,
+        name: "Veg Spring Rolls",
+        category: "Starters",
+        isVeg: true,
+        price: 180,
+        badge: "",
+        description: "Crispy golden wrappers stuffed with spiced julienned vegetables & sweet chili dip",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8cQweH9wFYgo5ZfO_7FRXeZA5DWV_3xqpgH8bZ4ReTA&s=10"
+      },
+      {
+        id: 3,
+        name: "Chicken Tikka",
+        category: "Starters",
+        isVeg: false,
+        price: 320,
+        badge: "Chef's Special",
+        description: "Tender boneless chicken steeped in Kashmiri chili yogurt marinade & charred in tandoor",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCDXZDXKyR7xN1Y25dpKNv4HZHskFjvI6oAFF4XABeUQ&s=10"
+      },
+      {
+        id: 4,
+        name: "Crispy Masala Fries",
+        category: "Starters",
+        isVeg: true,
+        price: 150,
+        badge: "",
+        description: "Crunchy double-fried potato batons tossed in house special chaat masala",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLrfcAI-lVJSpdngqEhafUAU5fb7L_SOLC4oENfBYKiw&s=10"
+      },
+      {
+        id: 5,
+        name: "Paneer Butter Masala",
+        category: "Main Course",
+        isVeg: true,
+        price: 290,
+        badge: "Bestseller",
+        description: "Velvety tomato gravy enriched with fresh butter, fenugreek, and soft paneer cubes",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR6o_zlObBFrdxVJEMZVG8Kp85Kyz8CFaiQgTvU-LJUw&s=10"
+      },
+      {
+        id: 6,
+        name: "Dal Makhani",
+        category: "Main Course",
+        isVeg: true,
+        price: 240,
+        badge: "Popular",
+        description: "Slow-cooked black lentils simmered overnight with butter, cream, and aromatic spices",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmxNwmS1HUtKMllo6bGn7nw_AJ4fEo1r0bXCDxR_1uBQ&s=10"
+      },
+      {
+        id: 7,
+        name: "Veg Kadai",
+        category: "Main Course",
+        isVeg: true,
+        price: 250,
+        badge: "",
+        description: "Melange of crunchy garden vegetables tossed with freshly pounded kadai spices in thick gravy",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdg799hhrCcSWL-6QxKid5OwBZ7tyjhT1Sk9-fhbt-uNoFUij2-hxdKWBq&s=10" },
+      {
+        id: 8,
+        name: "Butter Chicken",
+        category: "Main Course",
+        isVeg: false,
+        price: 340,
+        badge: "Must Try",
+        description: "Tandoori chicken pulled and simmered in our signature silky makhani gravy",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP3mgeFUXMHYVHzvCxLz2Bysg6mx13mpwhHrL59DIGoQ&s=10"
+      },
+      {
+        id: 9,
+        name: "Chicken Curry",
+        category: "Main Course",
+        isVeg: false,
+        price: 310,
+        badge: "",
+        description: "Homestyle tender chicken cooked in caramelized onion, tomato, and whole spices gravy",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAiaj-Pq24FtJamyPfXEwJf-u9ienqxUJzhG4X2a3FKA&s=10"
+      },
+      {
+        id: 10,
+        name: "Butter Naan",
+        category: "Breads & Rice",
+        isVeg: true,
+        price: 65,
+        badge: "",
+        description: "Classic leavened flatbread freshly baked in tandoor and brushed with salted butter",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC7Jg-E5i5-MXEasoVele73gNOW7PvTNZTDIbvnazZcw&s=10"
+      },
+      {
+        id: 11,
+        name: "Garlic Naan",
+        category: "Breads & Rice",
+        isVeg: true,
+        price: 85,
+        badge: "Popular",
+        description: "Fluffy tandoori bread infused with roasted garlic chunks and fresh coriander",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLOsq1S2o3RlI4jG_qaaAdni3LbkRXIctSIA2M4nuRpwJJ__XsK-iWwjxt&s=10"
+      },
+      {
+        id: 12,
+        name: "Steamed Basmati Rice",
+        category: "Breads & Rice",
+        isVeg: true,
+        price: 130,
+        badge: "",
+        description: "Fragrant long-grain aged basmati rice steamed to perfection",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw841qrsA-neikwI-PQeu_wLxCaxqHiomzHLdcSq1ONw&s=10"
+      },
+      {
+        id: 13,
+        name: "Veg Biryani",
+        category: "Breads & Rice",
+        isVeg: true,
+        price: 230,
+        badge: "",
+        description: "Aromatic basmati rice layered with spiced garden vegetables, saffron & mint",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSKlPw96UVLFBUjtmV5dzH4eB15Kav5y32O1eMQwfe26alreo0z8KI-UTG&s=10"
+      },
+      {
+        id: 14,
+        name: "Chicken Dum Biryani",
+        category: "Breads & Rice",
+        isVeg: false,
+        price: 300,
+        badge: "Chef's Special",
+        description: "Fragrant basmati cooked on dum with succulent bone-in chicken & saffron broth",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS78KJyxt79X_NygXpo5lB_XQc7qklDEs42_1DkwgqlA8sQJzmMq9ZYZ6Up&s=10"
+      },
+      {
+        id: 15,
+        name: "Hara Bhara Kebab",
+        category: "Snacks",
+        isVeg: true,
+        price: 190,
+        badge: "",
+        description: "Nutritious pan-fried patties of spinach, green peas, mashed potato, and cashews",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTUY7NMACEk9HSK10lt_o2NtwL9qO8aEbnA1gWQMEFr8JjC0zQq186gdu&s=10"
+      },
+      {
+        id: 16,
+        name: "Chilli Paneer",
+        category: "Snacks",
+        isVeg: true,
+        price: 240,
+        badge: "Hot",
+        description: "Crisp fried paneer cubes tossed with crunchy bell peppers, spring onions, and spicy soy-chili sauce",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyuxSrIK_IWsrIFYscpndf8b58b_fiiSBX8wImmyHCbg&s=10"
+      },
+      {
+        id: 17,
+        name: "Gulab Jamun",
+        category: "Desserts",
+        isVeg: true,
+        price: 100,
+        badge: "Sweet Fav",
+        description: "Warm, melt-in-mouth golden milk-solid dumplings soaked in rose-cardamom syrup",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa1l0ndLL_TfJDHl6U5Dtm64i4RnFkUhW_op7gpUShzrSLBBJb8u0Onjkh&s=10"
+      },
+      {
+        id: 18,
+        name: "Chocolate Brownie",
+        category: "Desserts",
+        isVeg: true,
+        price: 160,
+        badge: "",
+        description: "Dense Belgian chocolate fudge brownie served warm with rich dark chocolate drizzle",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScC2INPZ90CZ0X-_JM_KExzVNciTffP9FqCiduhziChQ&s=10"
+      },
+      {
+        id: 19,
+        name: "Fresh Lime Soda",
+        category: "Drinks",
+        isVeg: true,
+        price: 90,
+        badge: "",
+        description: "Refreshing freshly squeezed lime juice with club soda, mint, and rock salt",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxaYpFmbvI1BZmps-ZRBhKt9G9uX0b-VvSieJ0u6qCvw&s=10"
+      },
+      {
+        id: 20,
+        name: "Mango Lassi",
+        category: "Drinks",
+        isVeg: true,
+        price: 120,
+        badge: "Seasonal",
+        description: "Thick, chilled churned yogurt blended with Alphonso mango pulp and saffron",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhDF8XnjgIXyKznAIRskvAgLpzvSxeZ58pwdM8l09TVQ&s=10"
+      }
+    ];
+
+    // Reactive State
+    let cart = {}; // { dishId: quantity }
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let dietaryFilter = null; // 'veg' | 'nonveg' | null
+    let discountApplied = false;
+  </script>
+<script data-purpose="dom-rendering-and-interactions">
+    // Render the grid cards
+    function renderMenu() {
+      const grid = document.getElementById('dishes-grid');
+      const noResults = document.getElementById('no-results');
+      const itemsCountSpan = document.getElementById('items-count');
+      
+      const filtered = MENU_ITEMS.filter(dish => {
+        const matchesCategory = currentCategory === 'all' || dish.category.toLowerCase() === currentCategory.toLowerCase();
+        const matchesSearch = dish.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                              dish.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesDiet = !dietaryFilter || (dietaryFilter === 'veg' && dish.isVeg) || (dietaryFilter === 'nonveg' && !dish.isVeg);
+        return matchesCategory && matchesSearch && matchesDiet;
+      });
+
+      itemsCountSpan.innerText = `${filtered.length} item${filtered.length === 1 ? '' : 's'}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        noResults.classList.remove('hidden');
+        return;
+      }
+
+      noResults.classList.add('hidden');
+      
+      grid.innerHTML = filtered.map(dish => {
+        const qty = cart[dish.id] || 0;
+        return `
+          <article data-purpose="dish-card" class="bg-white rounded-2xl p-2.5 shadow-card border border-cream-200 flex flex-col justify-between transition-transform duration-200 hover:-translate-y-0.5">
+            <div>
+              <!-- Food Image Thumbnail with quick detail click -->
+              <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-cream-100 cursor-pointer" onclick="openDishDetail(${dish.id})">
+                <img 
+                  src="${dish.image}" 
+                  alt="${dish.name}" 
+                  loading="lazy" 
+                  class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                />
+                
+                <!-- Diet Indicator Tag (Green Veg / Red Non-veg) -->
+                <div class="absolute top-2 left-2 bg-white/95 backdrop-blur-sm p-1 rounded-md shadow-xs flex items-center justify-center">
+                  <span class="w-3.5 h-3.5 border ${dish.isVeg ? 'border-emerald-600' : 'border-rose-600'} flex items-center justify-center">
+                    <span class="w-1.5 h-1.5 rounded-full ${dish.isVeg ? 'bg-emerald-600' : 'bg-rose-600'}"></span>
+                  </span>
+                </div>
+
+                ${dish.badge ? `
+                  <div class="absolute bottom-2 left-2 bg-brand-900/90 text-amberAccent-400 font-extrabold text-[9px] px-2 py-0.5 rounded-md backdrop-blur-xs tracking-wider uppercase">
+                    ${dish.badge}
+                  </div>
+                ` : ''}
+              </div>
+
+              <!-- Content -->
+              <div class="mt-2.5">
+                <h3 onclick="openDishDetail(${dish.id})" class="text-xs sm:text-sm font-bold text-brand-900 leading-snug cursor-pointer hover:text-brand-800 line-clamp-1">
+                  ${dish.name}
+                </h3>
+                <p class="text-[11px] text-brand-900/60 leading-tight mt-1 line-clamp-2">
+                  ${dish.description}
+                </p>
+              </div>
+            </div>
+
+            <!-- Price and Quantity Controls -->
+            <div class="mt-3 pt-2 border-t border-cream-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-extrabold text-brand-900">
+                ₹${dish.price}
+              </span>
+
+              ${qty > 0 ? `
+                <div class="flex items-center gap-1.5 bg-brand-50 border border-brand-100 rounded-full px-1.5 py-0.5">
+                  <button onclick="updateCart(${dish.id}, -1)" class="w-5 h-5 rounded-full bg-white text-brand-800 font-bold text-xs flex items-center justify-center shadow-2xs active:scale-90">
+                    -
+                  </button>
+                  <span class="text-xs font-bold text-brand-900 px-1">${qty}</span>
+                  <button onclick="updateCart(${dish.id}, 1)" class="w-5 h-5 rounded-full bg-brand-800 text-white font-bold text-xs flex items-center text-center justify-center shadow-2xs active:scale-90">
+                    +
+                  </button>
+                </div>
+              ` : `
+                <button 
+                  onclick="updateCart(${dish.id}, 1)" 
+                  aria-label="Add ${dish.name}" 
+                  class="w-7 h-7 rounded-full bg-brand-800 text-white flex items-center justify-center hover:bg-brand-900 active:scale-90 shadow-sm transition-all"
+                >
+                  <svg class="w-4 h-4 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                  </svg>
+                </button>
+              `}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Category Filter Handler
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(pill => {
+        const isMatch = pill.getAttribute('data-cat') === cat;
+        if (isMatch) {
+          pill.className = "cat-pill active flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all bg-brand-800 text-white shadow-sm shadow-brand-900/10";
+        } else {
+          pill.className = "cat-pill flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white text-brand-900/80 border border-cream-border hover:bg-cream-100 transition-all";
+        }
+      });
+      document.getElementById('section-title').innerText = cat === 'all' ? 'Popular dishes' : cat;
+      renderMenu();
+    }
+
+    // Dietary Filter Handler
+    function toggleDietary(type) {
+      const vegBtn = document.getElementById('veg-toggle');
+      const nonvegBtn = document.getElementById('nonveg-toggle');
+
+      if (dietaryFilter === type) {
+        dietaryFilter = null;
+        vegBtn.className = "px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-cream-border text-emerald-800 flex items-center gap-1.5 transition-all";
+        nonvegBtn.className = "px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-cream-border text-rose-800 flex items-center gap-1.5 transition-all";
+      } else {
+        dietaryFilter = type;
+        if (type === 'veg') {
+          vegBtn.className = "px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-800 text-white border border-emerald-800 flex items-center gap-1.5 shadow-xs transition-all";
+          nonvegBtn.className = "px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-cream-border text-rose-800 opacity-60 flex items-center gap-1.5 transition-all";
+        } else {
+          nonvegBtn.className = "px-2.5 py-1 rounded-lg text-[11px] font-bold bg-rose-800 text-white border border-rose-800 flex items-center gap-1.5 shadow-xs transition-all";
+          vegBtn.className = "px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-cream-border text-emerald-800 opacity-60 flex items-center gap-1.5 transition-all";
+        }
+      }
+      renderMenu();
+    }
+
+    // Instant Search Filter
+    function handleSearch(val) {
+      searchQuery = val.trim();
+      const clearBtn = document.getElementById('search-clear-btn');
+      if (searchQuery.length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      renderMenu();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('dish-search-input');
+      input.value = '';
+      searchQuery = '';
+      document.getElementById('search-clear-btn').classList.add('hidden');
+      renderMenu();
+    }
+
+    function resetFilters() {
+      clearSearch();
+      setCategory('all');
+      dietaryFilter = null;
+      toggleDietary(null);
+    }
+
+    // Cart Updates
+    function updateCart(dishId, change) {
+      const current = cart[dishId] || 0;
+      const next = current + change;
+      if (next <= 0) {
+        delete cart[dishId];
+      } else {
+        cart[dishId] = next;
+      }
+      syncCartUI();
+      renderMenu();
+    }
+
+    function syncCartUI() {
+      let totalQty = 0;
+      let subtotal = 0;
+
+      for (const [id, qty] of Object.entries(cart)) {
+        const item = MENU_ITEMS.find(m => m.id === parseInt(id));
+        if (item) {
+          totalQty += qty;
+          subtotal += item.price * qty;
+        }
+      }
+
+      // Header Badge
+      const headerBadge = document.getElementById('header-cart-badge');
+      if (totalQty > 0) {
+        headerBadge.innerText = totalQty;
+        headerBadge.classList.remove('scale-0');
+      } else {
+        headerBadge.classList.add('scale-0');
+      }
+
+      // Floating Cart Bar
+      const floatingBar = document.getElementById('floating-cart-bar');
+      const cartCount = document.getElementById('cart-bar-count');
+      const cartTotal = document.getElementById('cart-bar-total');
+
+      if (totalQty > 0) {
+        cartCount.innerText = totalQty;
+        cartTotal.innerText = `₹${subtotal}`;
+        floatingBar.classList.remove('translate-y-28', 'opacity-0', 'pointer-events-none');
+      } else {
+        floatingBar.classList.add('translate-y-28', 'opacity-0', 'pointer-events-none');
+        closeCartDrawer();
+      }
+
+      renderCartDrawerItems(subtotal);
+    }
+
+    function renderCartDrawerItems(subtotal) {
+      const container = document.getElementById('cart-items-container');
+      const keys = Object.keys(cart);
+
+      if (keys.length === 0) {
+        container.innerHTML = `
+          <div class="py-8 text-center text-brand-900/50">
+            <p class="text-sm">Your plate is empty right now.</p>
+            <p class="text-xs mt-1">Select your favorite dishes from above.</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = keys.map(id => {
+          const item = MENU_ITEMS.find(m => m.id === parseInt(id));
+          const qty = cart[id];
+          return `
+            <div class="py-3 flex items-center justify-between">
+              <div class="pr-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 border ${item.isVeg ? 'border-emerald-600' : 'border-rose-600'} flex items-center justify-center">
+                    <span class="w-1 h-1 rounded-full ${item.isVeg ? 'bg-emerald-600' : 'bg-rose-600'}"></span>
+                  </span>
+                  <h4 class="text-xs font-bold text-brand-900">${item.name}</h4>
+                </div>
+                <span class="text-xs text-brand-900/60 font-medium ml-4">₹${item.price} each</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 bg-cream-100 rounded-full px-2 py-1 border border-cream-border">
+                  <button onclick="updateCart(${item.id}, -1)" class="w-5 h-5 rounded-full bg-white text-brand-900 font-bold text-xs flex items-center justify-center active:scale-90">-</button>
+                  <span class="text-xs font-bold text-brand-900">${qty}</span>
+                  <button onclick="updateCart(${item.id}, 1)" class="w-5 h-5 rounded-full bg-brand-800 text-white font-bold text-xs flex items-center justify-center active:scale-90">+</button>
+                </div>
+                <span class="text-xs font-bold text-brand-900 w-12 text-right">₹${item.price * qty}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Calculate bill totals
+      const tax = Math.round(subtotal * 0.05);
+      let grandTotal = subtotal + tax;
+
+      if (discountApplied && subtotal >= 600) {
+        grandTotal -= 100;
+        document.getElementById('discount-row').classList.remove('hidden');
+      } else {
+        document.getElementById('discount-row').classList.add('hidden');
+      }
+
+      document.getElementById('bill-subtotal').innerText = `₹${subtotal}`;
+      document.getElementById('bill-tax').innerText = `₹${tax}`;
+      document.getElementById('bill-grand-total').innerText = `₹${Math.max(0, grandTotal)}`;
+    }
+
+    // Cart Drawer Controls
+    function openCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      const backdrop = document.getElementById('cart-backdrop');
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+      drawer.classList.remove('translate-y-full');
+    }
+
+    function closeCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      const backdrop = document.getElementById('cart-backdrop');
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      drawer.classList.add('translate-y-full');
+    }
+
+    // Dish Detail Modal
+    let activeModalDishId = null;
+    function openDishDetail(dishId) {
+      const dish = MENU_ITEMS.find(d => d.id === dishId);
+      if (!dish) return;
+      activeModalDishId = dishId;
+
+      document.getElementById('modal-dish-img').src = dish.image;
+      document.getElementById('modal-dish-name').innerText = dish.name;
+      document.getElementById('modal-dish-price').innerText = `₹${dish.price}`;
+      document.getElementById('modal-dish-desc').innerText = dish.description;
+      
+      const badgeContainer = document.getElementById('modal-badge-container');
+      badgeContainer.innerHTML = dish.badge ? `
+        <span class="bg-brand-900/90 text-amberAccent-400 font-bold text-[10px] px-2.5 py-1 rounded-md tracking-wider uppercase backdrop-blur-md">
+          ${dish.badge}
+        </span>
+      ` : '';
+
+      document.getElementById('modal-add-btn').onclick = function() {
+        updateCart(dish.id, 1);
+        closeDishDetail();
+      };
+
+      const sheet = document.getElementById('dish-detail-sheet');
+      const backdrop = document.getElementById('detail-backdrop');
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+      sheet.classList.remove('translate-y-full');
+    }
+
+    function closeDishDetail() {
+      const sheet = document.getElementById('dish-detail-sheet');
+      const backdrop = document.getElementById('detail-backdrop');
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      sheet.classList.add('translate-y-full');
+    }
+
+    // Offers logic
+    function applyOfferCode() {
+      discountApplied = true;
+      syncCartUI();
+      alert("Promo code MINT100 applied! ₹100 off will reflect for orders over ₹600.");
+    }
+
+    function placeOrderAction() {
+      alert("🎉 Order placed successfully! Your chef has received the ticket for Table 04.");
+      cart = {};
+      syncCartUI();
+      closeCartDrawer();
+      renderMenu();
+    }
+
+    // Initialize Menu
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMenu();
+      syncCartUI();
+    });
+  </script>
+<!-- END: MenuDataAndInteractivity -->
+</body>
+    <script type="module" src="/src/main.js"></script>
+</html>
