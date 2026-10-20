@@ -221,9 +221,11 @@
 <p class="text-[10px] text-brand-900/70 font-medium">Use code <span class="font-bold uppercase tracking-wider text-brand-800">MINT100</span> at checkout</p>
 </div>
 </div>
-<button class="px-2.5 py-1 text-[11px] font-bold text-brand-800 bg-white rounded-lg border border-brand-800/20 active:scale-95 shadow-2xs" onclick="applyOfferCode()">
-          Apply
-        </button>
+        <div id="offer-action-container">
+          <button class="px-2.5 py-1 text-[11px] font-bold text-brand-800 bg-white hover:bg-brand-50 rounded-lg border border-brand-800/20 active:scale-95 shadow-2xs transition-all" onclick="applyOfferCode()">
+            Apply
+          </button>
+        </div>
 </div>
 </div>
 <!-- END: PromotionalCallout -->
@@ -339,6 +341,147 @@
 </div>
 </aside>
 <!-- END: SlideUpCartDrawer -->
+<!-- BEGIN: OfferCongratsModal -->
+<div class="fixed inset-0 bg-brand-900/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4" id="congrats-modal-backdrop" onclick="closeCongratsModal()">
+  <div class="relative w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-2xl transform scale-90 opacity-0 transition-all duration-300 ease-out text-center overflow-hidden border border-cream-border" id="congrats-modal-card" onclick="event.stopPropagation()">
+    
+    <!-- Canvas for Celebratory Confetti -->
+    <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none w-full h-full z-10"></canvas>
+    
+    <!-- Close Button -->
+    <button class="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-cream-100 hover:bg-cream-200 text-brand-900/60 hover:text-brand-900 flex items-center justify-center transition-colors z-20" onclick="closeCongratsModal()" aria-label="Close">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Celebration Icon with Glow Effect -->
+    <div class="relative mx-auto w-20 h-20 mb-3 flex items-center justify-center">
+      <div class="absolute inset-0 rounded-full bg-emerald-400/20 animate-ping"></div>
+      <div class="relative w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-600 via-emerald-500 to-amberAccent-400 flex items-center justify-center text-white shadow-lg shadow-emerald-600/30">
+        <span class="text-2xl animate-bounce">🎉</span>
+      </div>
+    </div>
+
+    <!-- Title and Badge -->
+    <span class="inline-block text-[10px] font-extrabold uppercase tracking-widest text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 mb-2">
+      Coupon Applied Successfully
+    </span>
+    <h3 class="text-xl font-extrabold text-brand-900 leading-tight">
+      Congratulations!
+    </h3>
+    <p class="text-xs text-brand-900/70 mt-1 mb-4">
+      You unlocked <span class="font-bold text-emerald-700">₹100 discount</span> on your table dining experience!
+    </p>
+
+    <!-- Coupon Highlight Card -->
+    <div class="bg-cream-50 border border-cream-border rounded-2xl p-3 mb-4 text-left">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-lg bg-brand-800 text-white flex items-center justify-center text-xs font-bold">
+            %
+          </span>
+          <div>
+            <p class="text-xs font-bold text-brand-900 uppercase tracking-wide">MINT100</p>
+            <p class="text-[10px] text-brand-900/60">Applied to your table bill</p>
+          </div>
+        </div>
+        <span class="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+          - ₹100
+        </span>
+      </div>
+      <div class="mt-2.5 pt-2 border-t border-cream-200 flex items-center gap-1.5 text-[10px] text-brand-900/70">
+        <svg class="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Applicable on orders of ₹600 or more</span>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <button onclick="closeCongratsModal()" class="w-full py-3 bg-brand-800 hover:bg-brand-900 active:scale-[0.98] text-white font-bold rounded-xl text-xs tracking-wide shadow-md transition-all flex items-center justify-center gap-2">
+      <span>YAY! CONTINUE ORDERING</span>
+      <svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+    </button>
+  </div>
+</div>
+<!-- END: OfferCongratsModal -->
+<!-- BEGIN: OrderSuccessModal -->
+<div class="fixed inset-0 bg-brand-900/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4" id="order-success-backdrop" onclick="closeOrderSuccessModal()">
+  <div class="relative w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-2xl transform scale-90 opacity-0 transition-all duration-300 ease-out text-center overflow-hidden border border-cream-border" id="order-success-card" onclick="event.stopPropagation()">
+    
+    <!-- Canvas for Confetti -->
+    <canvas id="order-confetti-canvas" class="absolute inset-0 pointer-events-none w-full h-full z-10"></canvas>
+    
+    <!-- Close Button -->
+    <button class="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-cream-100 hover:bg-cream-200 text-brand-900/60 hover:text-brand-900 flex items-center justify-center transition-colors z-20" onclick="closeOrderSuccessModal()" aria-label="Close">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Success Chef Hat & Sparkle Animation -->
+    <div class="relative mx-auto w-20 h-20 mb-3 flex items-center justify-center">
+      <div class="absolute inset-0 rounded-full bg-brand-600/20 animate-ping"></div>
+      <div class="relative w-16 h-16 rounded-full bg-gradient-to-tr from-brand-800 via-brand-600 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-brand-900/20">
+        <span class="text-3xl animate-bounce">👨‍🍳</span>
+      </div>
+    </div>
+
+    <!-- Live Status Pill -->
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 mb-2">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800">Sent to Kitchen</span>
+    </div>
+
+    <h3 class="text-xl font-extrabold text-brand-900 leading-tight">
+      Order Confirmed!
+    </h3>
+    <p class="text-xs text-brand-900/70 mt-1 mb-4">
+      Your chef has received the ticket for <span class="font-bold text-brand-900">Table 04</span>.
+    </p>
+
+    <!-- Order Summary Card -->
+    <div class="bg-cream-50 border border-cream-border rounded-2xl p-3.5 mb-4 text-left space-y-2">
+      <div class="flex items-center justify-between text-xs">
+        <span class="text-brand-900/60 font-medium">Ticket ID</span>
+        <span class="font-mono font-bold text-brand-900" id="success-order-id">#TBL04-782</span>
+      </div>
+      <div class="flex items-center justify-between text-xs">
+        <span class="text-brand-900/60 font-medium">Items Ordered</span>
+        <span class="font-semibold text-brand-900" id="success-order-items">3 items</span>
+      </div>
+      <div class="flex items-center justify-between text-xs">
+        <span class="text-brand-900/60 font-medium">Est. Prep Time</span>
+        <span class="font-bold text-amberAccent-500 flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <path stroke-linecap="round" stroke-width="2" d="M12 6v6l4 2"/>
+          </svg>
+          ~15-20 mins
+        </span>
+      </div>
+      <div class="pt-2 border-t border-cream-200 flex items-center justify-between">
+        <span class="text-xs font-bold text-brand-900">Total Billed</span>
+        <span class="text-sm font-extrabold text-brand-800" id="success-order-total">₹0</span>
+      </div>
+    </div>
+
+    <!-- Done / Explore More Button -->
+    <button onclick="closeOrderSuccessModal()" class="w-full py-3 bg-brand-800 hover:bg-brand-900 active:scale-[0.98] text-white font-bold rounded-xl text-xs tracking-wide shadow-md transition-all flex items-center justify-center gap-2">
+      <span>AWESOME! EXPLORE MENU</span>
+      <svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+    </button>
+  </div>
+</div>
+<!-- END: OrderSuccessModal -->
 <!-- BEGIN: DishDetailBottomSheet -->
 <div class="fixed inset-0 bg-brand-900/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" id="detail-backdrop" onclick="closeDishDetail()"></div>
 <div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto bg-white rounded-t-3xl z-50 shadow-2xl transition-transform duration-300 ease-out transform translate-y-full flex flex-col max-h-[90vh] overflow-hidden" data-purpose="dish-customization-modal" id="dish-detail-sheet">
@@ -931,17 +1074,231 @@
     }
 
     // Offers logic
+    function renderOfferBtn() {
+      const container = document.getElementById('offer-action-container');
+      if (!container) return;
+      if (discountApplied) {
+        container.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <span class="px-2.5 py-1 text-[11px] font-bold text-emerald-800 bg-emerald-100/90 rounded-lg border border-emerald-300 flex items-center gap-1 shadow-2xs">
+              <svg class="w-3 h-3 text-emerald-600 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              Applied
+            </span>
+            <button onclick="removeOfferCode()" class="text-[10px] text-brand-900/60 hover:text-rose-600 font-semibold underline decoration-dotted ml-0.5 transition-colors">
+              Remove
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button class="px-2.5 py-1 text-[11px] font-bold text-brand-800 bg-white hover:bg-brand-50 rounded-lg border border-brand-800/20 active:scale-95 shadow-2xs transition-all" onclick="applyOfferCode()">
+            Apply
+          </button>
+        `;
+      }
+    }
+
     function applyOfferCode() {
       discountApplied = true;
+      renderOfferBtn();
       syncCartUI();
-      alert("Promo code MINT100 applied! ₹100 off will reflect for orders over ₹600.");
+      showCongratsModal();
+    }
+
+    function removeOfferCode() {
+      discountApplied = false;
+      renderOfferBtn();
+      syncCartUI();
+    }
+
+    function showCongratsModal() {
+      const backdrop = document.getElementById('congrats-modal-backdrop');
+      const card = document.getElementById('congrats-modal-card');
+      if (!backdrop || !card) return;
+
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+
+      card.classList.remove('scale-90', 'opacity-0');
+      card.classList.add('scale-100', 'opacity-100');
+
+      setTimeout(fireConfetti, 100);
+    }
+
+    function closeCongratsModal() {
+      const backdrop = document.getElementById('congrats-modal-backdrop');
+      const card = document.getElementById('congrats-modal-card');
+      if (!backdrop || !card) return;
+
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+
+      card.classList.remove('scale-100', 'opacity-100');
+      card.classList.add('scale-90', 'opacity-0');
+    }
+
+    function fireConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      
+      const particles = [];
+      const colors = ['#F4C451', '#226B43', '#10B981', '#F59E0B', '#09291F', '#FB7185', '#3B82F6'];
+      
+      for (let i = 0; i < 45; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: 65,
+          vx: (Math.random() - 0.5) * 7,
+          vy: (Math.random() * -5) - 2.5,
+          size: Math.random() * 5 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRotation: (Math.random() - 0.5) * 12,
+          opacity: 1
+        });
+      }
+
+      let animationFrame;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let activeCount = 0;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.22;
+          p.rotation += p.vRotation;
+          p.opacity -= 0.013;
+
+          if (p.opacity > 0 && p.y < canvas.height) {
+            activeCount++;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+            ctx.restore();
+          }
+        });
+
+        if (activeCount > 0) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          cancelAnimationFrame(animationFrame);
+        }
+      }
+      animate();
+    }
+
+    function showOrderSuccessModal(itemCount, totalStr) {
+      const backdrop = document.getElementById('order-success-backdrop');
+      const card = document.getElementById('order-success-card');
+      const idEl = document.getElementById('success-order-id');
+      const itemsEl = document.getElementById('success-order-items');
+      const totalEl = document.getElementById('success-order-total');
+
+      if (idEl) idEl.innerText = `#TBL04-${Math.floor(100 + Math.random() * 900)}`;
+      if (itemsEl) itemsEl.innerText = `${itemCount} item${itemCount > 1 ? 's' : ''}`;
+      if (totalEl) totalEl.innerText = totalStr;
+
+      if (!backdrop || !card) return;
+
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+
+      card.classList.remove('scale-90', 'opacity-0');
+      card.classList.add('scale-100', 'opacity-100');
+
+      setTimeout(() => fireOrderConfetti(), 100);
+    }
+
+    function closeOrderSuccessModal() {
+      const backdrop = document.getElementById('order-success-backdrop');
+      const card = document.getElementById('order-success-card');
+      if (!backdrop || !card) return;
+
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+
+      card.classList.remove('scale-100', 'opacity-100');
+      card.classList.add('scale-90', 'opacity-0');
+    }
+
+    function fireOrderConfetti() {
+      const canvas = document.getElementById('order-confetti-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      
+      const particles = [];
+      const colors = ['#F4C451', '#226B43', '#10B981', '#185438', '#09291F', '#F59E0B'];
+      
+      for (let i = 0; i < 45; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: 65,
+          vx: (Math.random() - 0.5) * 7,
+          vy: (Math.random() * -5) - 2.5,
+          size: Math.random() * 5 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRotation: (Math.random() - 0.5) * 12,
+          opacity: 1
+        });
+      }
+
+      let animationFrame;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let activeCount = 0;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.22;
+          p.rotation += p.vRotation;
+          p.opacity -= 0.013;
+
+          if (p.opacity > 0 && p.y < canvas.height) {
+            activeCount++;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+            ctx.restore();
+          }
+        });
+
+        if (activeCount > 0) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          cancelAnimationFrame(animationFrame);
+        }
+      }
+      animate();
     }
 
     function placeOrderAction() {
-      alert("🎉 Order placed successfully! Your chef has received the ticket for Table 04.");
-      cart = {};
-      syncCartUI();
+      const itemCount = Object.values(cart).reduce((a, b) => a + b, 0);
+      if (itemCount === 0) return;
+
+      const grandTotalText = document.getElementById('bill-grand-total')?.innerText || '₹0';
       closeCartDrawer();
+      showOrderSuccessModal(itemCount, grandTotalText);
+
+      cart = {};
+      discountApplied = false;
+      renderOfferBtn();
+      syncCartUI();
       renderMenu();
     }
 
@@ -949,6 +1306,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       renderMenu();
       syncCartUI();
+      renderOfferBtn();
     });
   </script>
 <!-- END: MenuDataAndInteractivity -->
